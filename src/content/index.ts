@@ -1,7 +1,7 @@
 import { GridVideos } from "./grid-videos";
 import { GlobalCommand, GridCommand, WatchCommand, buildModifer } from "./keymaps";
 
-const main = () => {
+export const registerYoutubeShortcuts = () => {
   const homeVideos = new GridVideos();
 
   document.addEventListener("keydown", (event) => {
@@ -66,5 +66,3 @@ const main = () => {
     }
   });
 };
-
-main();

@@ -4,28 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
-    "watch": "concurrently -r 'tsc --watch' 'vite build --watch'",
+    "dev": "wxt",
+    "build": "wxt build",
+    "typecheck": "tsc --noEmit",
     "check": "biome check",
     "check:apply": "biome check --apply src",
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@emotion/css": "^11.13.4",
-    "@extend-chrome/storage": "^1.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@emotion/css": "^11.13.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@crxjs/vite-plugin": "^2.0.0-beta.26",
-    "@types/chrome": "^0.0.279",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "concurrently": "^9.0.1",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10"
+    "@biomejs/biome": "2.3.8",
+    "@types/chrome": "^0.1.31",
+    "prettier": "^3.7.3",
+    "typescript": "^5.9.3",
+    "wxt": "^0.20.11"
   }
 }
