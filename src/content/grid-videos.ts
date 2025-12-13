@@ -9,13 +9,30 @@ export class GridVideos {
     return document.querySelectorAll(this.queryId);
   }
 
+  private applyHighlight(videos: NodeListOf<Element>, index: number) {
+    if (index < 0 || index >= videos.length) {
+      return;
+    }
+
+    if (this.current !== undefined && videos[this.current]) {
+      videos[this.current].classList.remove(styles.highlight);
+    }
+
+    this.current = index;
+    const nextVideo = videos[this.current] as HTMLElement | undefined;
+    if (!nextVideo) return;
+
+    nextVideo.classList.add(styles.highlight);
+    nextVideo.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+  }
+
   public clickHighlighted() {
     if (this.current === undefined) {
       return;
     }
 
     const videos = this.selectGridVideos();
-    videos[this.current].querySelector("a")?.click();
+    videos[this.current]?.querySelector("a")?.click();
   }
 
   public unhighlight() {
@@ -24,18 +41,14 @@ export class GridVideos {
     }
 
     const videos = this.selectGridVideos();
-    videos[this.current].classList.remove(styles.highlight);
+    videos[this.current]?.classList.remove(styles.highlight);
     this.current = undefined;
   }
 
   public highlightFirst() {
     const videos = this.selectGridVideos();
 
-    if (this.current !== undefined) {
-      videos[this.current].classList.remove(styles.highlight);
-    }
-    this.current = 0;
-    videos[this.current].classList.add(styles.highlight);
+    this.applyHighlight(videos, 0);
   }
 
   public highlightNext() {
@@ -46,9 +59,7 @@ export class GridVideos {
 
     const videos = this.selectGridVideos();
 
-    videos[this.current].classList.remove(styles.highlight);
-    this.current++;
-    videos[this.current].classList.add(styles.highlight);
+    this.applyHighlight(videos, this.current + 1);
   }
 
   public highlightPrevious() {
@@ -61,9 +72,7 @@ export class GridVideos {
 
     const videos = this.selectGridVideos();
 
-    videos[this.current].classList.remove(styles.highlight);
-    this.current--;
-    videos[this.current].classList.add(styles.highlight);
+    this.applyHighlight(videos, this.current - 1);
   }
 
   public highlightUp() {
@@ -78,9 +87,7 @@ export class GridVideos {
       return;
     }
 
-    videos[this.current].classList.remove(styles.highlight);
-    this.current -= itemsPerRow;
-    videos[this.current].classList.add(styles.highlight);
+    this.applyHighlight(videos, this.current - itemsPerRow);
   }
 
   public highlightDown() {
@@ -96,8 +103,6 @@ export class GridVideos {
       return;
     }
 
-    videos[this.current].classList.remove(styles.highlight);
-    this.current += itemsPerRow;
-    videos[this.current].classList.add(styles.highlight);
+    this.applyHighlight(videos, this.current + itemsPerRow);
   }
 }
